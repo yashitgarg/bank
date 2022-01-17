@@ -3,6 +3,7 @@ import _ from "lodash";
 // import { addResponse } from "../actions";
 const initailState = {
   list: [],
+  fav: [],
 };
 const rootReducer = (state = initailState, action) => {
   switch (action.type) {
@@ -13,6 +14,13 @@ const rootReducer = (state = initailState, action) => {
         ...state,
         //list: state.list.concat(action.payload),
         list: uniqueConcat,
+      };
+
+    case "ADDFAV":
+      console.log("fav", state.fav);
+      return {
+        ...state,
+        fav: state.fav.concat(action.payload),
       };
     default:
       return state;

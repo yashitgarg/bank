@@ -116,7 +116,15 @@ function App() {
               </div>
             }
           ></Route>
-          <Route path="/test" element={<div>test</div>}></Route>
+          <Route
+            path="/favourites"
+            element={
+              <Table
+                data={JSON.parse(localStorage.getItem("favourites"))}
+                searchTerm=""
+              />
+            }
+          ></Route>
           <Route
             path="/bank-details/:ifsc_code"
             element={<BankDetail data={searchFunction(apiData)} />}
