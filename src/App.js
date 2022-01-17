@@ -1,22 +1,31 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
+import { addFav, addResponse } from "./actions/index";
+import { useDispatch } from "react-redux";
 import axios from "axios";
 import Table from "./table";
 import BankDetail from "./bankDetail";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function App() {
+  const selectedData = useSelector((state) => state.list);
+  console.log("redux-check", selectedData);
+  const dispatch = useDispatch();
   const [apiData, setApiData] = useState([]);
   const [city, setCity] = useState("MUMBAI");
   const [searchTerm, setSearchTerm] = useState("");
   const [searchCriteria, setSearchCritaria] = useState("ifsc");
-  // let url = "https://vast-shore-74260.herokuapp.com/banks?city=" + city;
 
   useEffect(() => {
     axios
       .get("https://vast-shore-74260.herokuapp.com/banks?city=" + city)
       .then((response) => {
         setApiData(response.data);
+        dispatch({
+          payload: response.data,
+          type: "ADDRESPONSE",
+        });
         localStorage.setItem("list", response.data);
         // console.log(list);
       });
@@ -42,6 +51,10 @@ function App() {
       )
       .then((response) => {
         setApiData(response.data);
+        dispatch({
+          payload: response.data,
+          type: "ADDRESPONSE",
+        });
       });
   };
 

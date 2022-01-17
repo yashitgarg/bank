@@ -1,13 +1,18 @@
 import { createStore } from "redux";
+import _ from "lodash";
+// import { addResponse } from "../actions";
 const initailState = {
-  data: "lorem ipsum",
+  list: [],
 };
 const rootReducer = (state = initailState, action) => {
   switch (action.type) {
-    case "ADD_DATA":
+    case "ADDRESPONSE":
+      const concat = state.list.concat(action.payload);
+      const uniqueConcat = _.unionBy(state.list, action.payload, "ifsc");
       return {
         ...state,
-        data: action.payload,
+        //list: state.list.concat(action.payload),
+        list: uniqueConcat,
       };
     default:
       return state;

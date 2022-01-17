@@ -24,7 +24,6 @@ export default function Table({ data, searchCriteria, searchTerm }) {
   const handleClick = (row) => {
     localStorage.removeItem("bank_details");
     localStorage.setItem("bank_details", JSON.stringify(row));
-    console.log("called!!!", row);
   };
 
   return (
