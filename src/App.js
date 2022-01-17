@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import axios from "axios";
 import Table from "./table";
 import BankDetail from "./bankDetail";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 function App() {
@@ -58,7 +58,7 @@ function App() {
       <p>Groww</p>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<div>home page</div>}></Route>
+          <Route path="/" element={<Navigate to="/bank" />}></Route>
           <Route
             path="/bank"
             element={
