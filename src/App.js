@@ -68,7 +68,12 @@ function App() {
             element={
               <div>
                 <div className="searchHeader">
-                  <div>
+                  <div className="favouritesButtonContainer">
+                    <a href="/favourites" className="favouritesButton">
+                      Favourites
+                    </a>
+                  </div>
+                  <div className="select-dropdown">
                     <select
                       // onChange={(e) => setCity(e.target.value)}
                       onChange={(e) => selectCity(e)}
@@ -83,7 +88,7 @@ function App() {
                     </select>
                   </div>
 
-                  <div>
+                  <div className="select-dropdown">
                     <select
                       // defaultValue="ifsc"
                       onChange={(e) => setSearchCritaria(e.target.value)}

@@ -5,6 +5,8 @@ td {
   height: 80px;
   border: 1px solid #efefef;
   min-width: 150px;
+  padding-right: 5px;
+  padding-left: 5px;
 }
 
 .heading {

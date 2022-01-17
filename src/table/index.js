@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { searchFunction } from "../utils/searchFunction";
 import "./index.css";
-import BankDetail from "../bankDetail";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import ReactPaginate from "react-paginate";
 
 export default function Table({ data, searchCriteria, searchTerm }) {
@@ -11,13 +10,19 @@ export default function Table({ data, searchCriteria, searchTerm }) {
   const dispatch = useDispatch();
   const [tableData, setTableData] = useState();
   const [page, setPage] = useState(1);
-  const [rowCount, setRowCount] = useState(10);
+  const [rowCount] = useState(10);
   const [pageCount, setPageCount] = useState(0);
+  const [favourites, setFavourites] = useState([]);
   useEffect(() => {
     console.log(tableData);
     setTableData(searchFunction(data, searchCriteria, searchTerm));
     setPageCount(Math.ceil(data.length / rowCount));
-    console.log("table loaded");
+    setFavourites(
+      JSON.parse(localStorage.getItem("favourites")).filter((item) => {
+        return item.ifsc;
+      })
+    );
+    console.log("fav", favourites);
   }, [data, searchTerm]);
 
   const columns = [
@@ -51,7 +56,7 @@ export default function Table({ data, searchCriteria, searchTerm }) {
     currentData.push(data);
     localStorage.setItem("favourites", JSON.stringify(currentData));
 
-    console.log("dataaa", currentData, data);
+    console.log("dataaa", e, e.defaultChecked);
   };
   return (
     <>
@@ -72,6 +77,9 @@ export default function Table({ data, searchCriteria, searchTerm }) {
                   <td>
                     <input
                       type="checkbox"
+                      defaultChecked={
+                        favourites.filter((e) => e.ifsc === row.ifsc).length > 0
+                      }
                       onInput={(e) => handleFavClicked(e, row)}
                     />
                   </td>
