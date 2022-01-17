@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 import ReactPaginate from "react-paginate";
 
 export default function Table({ data, searchCriteria, searchTerm }) {
-  console.log("from table", data);
   const dispatch = useDispatch();
   const [tableData, setTableData] = useState();
   const [page, setPage] = useState(1);
@@ -14,15 +13,14 @@ export default function Table({ data, searchCriteria, searchTerm }) {
   const [pageCount, setPageCount] = useState(0);
   const [favourites, setFavourites] = useState([]);
   useEffect(() => {
-    console.log(tableData);
     setTableData(searchFunction(data, searchCriteria, searchTerm));
     setPageCount(Math.ceil(data.length / rowCount));
-    setFavourites(
-      JSON.parse(localStorage.getItem("favourites")).filter((item) => {
-        return item.ifsc;
-      })
-    );
-    console.log("fav", favourites);
+    if (localStorage.getItem("favourites"))
+      setFavourites(
+        JSON.parse(localStorage.getItem("favourites")).filter((item) => {
+          return item.ifsc;
+        })
+      );
   }, [data, searchTerm]);
 
   const columns = [
@@ -50,13 +48,8 @@ export default function Table({ data, searchCriteria, searchTerm }) {
     var currentData;
     if (!localStorage.getItem("favourites")) currentData = [];
     else currentData = JSON.parse(localStorage.getItem("favourites"));
-
-    console.log("type check", typeof currentData, typeof data);
-
     currentData.push(data);
     localStorage.setItem("favourites", JSON.stringify(currentData));
-
-    console.log("dataaa", e, e.defaultChecked);
   };
   return (
     <>

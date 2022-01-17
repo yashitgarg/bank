@@ -1,12 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./index.css";
 const bank_details = JSON.parse(localStorage.getItem("bank_details"));
-// import { useSelector } from "react-redux";
-// const selectedData = useSelector((state) => state.list);
-// var bank_details = jsObjects.find(obj => {
-//     return obj.b === 6
-//   })
-// console.log(selectedData);
+
 function BankDetail() {
   return (
     <div className="cardWrapper">

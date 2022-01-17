@@ -9,7 +9,6 @@ import { useSelector } from "react-redux";
 
 function App() {
   const selectedData = useSelector((state) => state.list);
-  console.log("redux-check", selectedData);
   const dispatch = useDispatch();
   const [apiData, setApiData] = useState([]);
   const [city, setCity] = useState("MUMBAI");
@@ -26,7 +25,6 @@ function App() {
           type: "ADDRESPONSE",
         });
         localStorage.setItem("list", response.data);
-        // console.log(list);
       });
   }, []);
 
@@ -40,10 +38,8 @@ function App() {
 
   const selectCity = (e) => {
     let selectedCity = e.target.value;
-    console.log("city before", city);
     setCity(selectedCity);
     setApiData([]);
-    console.log("city after", city);
     axios
       .get(
         "https://vast-shore-74260.herokuapp.com/banks?city=" + e.target.value

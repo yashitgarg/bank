@@ -1,4 +1,5 @@
 export const searchFunction = (data, searchCriteria, searchTerm) => {
+  //   debugger;
   if (!searchCriteria) return data;
 
   const filtered_data = data.filter(

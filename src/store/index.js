@@ -12,12 +12,10 @@ const rootReducer = (state = initailState, action) => {
       const uniqueConcat = _.unionBy(state.list, action.payload, "ifsc");
       return {
         ...state,
-        //list: state.list.concat(action.payload),
         list: uniqueConcat,
       };
 
     case "ADDFAV":
-      console.log("fav", state.fav);
       return {
         ...state,
         fav: state.fav.concat(action.payload),
