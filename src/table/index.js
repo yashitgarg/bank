@@ -3,16 +3,19 @@ import { searchFunction } from "../utils/searchFunction";
 import "./index.css";
 import BankDetail from "../bankDetail";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import ReactPaginate from "react-paginate";
 
 export default function Table({ data, searchCriteria, searchTerm }) {
   const [tableData, setTableData] = useState();
-
+  const [page, setPage] = useState(1);
+  const [rowCount, setRowCount] = useState(10);
+  const [pageCount, setPageCount] = useState(0);
   useEffect(() => {
     console.log(tableData);
     setTableData(searchFunction(data, searchCriteria, searchTerm));
+    setPageCount(Math.ceil(data.length / rowCount));
   }, [data, searchTerm]);
 
-  //   console.log("data from table: ", data);
   const columns = [
     ["bank_name", "Bank Name"],
     ["ifsc", "IFSC"],
@@ -26,6 +29,10 @@ export default function Table({ data, searchCriteria, searchTerm }) {
     localStorage.setItem("bank_details", JSON.stringify(row));
   };
 
+  const handlePageClick = (e) => {
+    setPage(e.selected + 1);
+  };
+
   return (
     <>
       {tableData && (
@@ -36,35 +43,56 @@ export default function Table({ data, searchCriteria, searchTerm }) {
             </tr>
           </thead>
           <tbody>
-            {tableData.slice(0, 10).map((row) => (
-              <tr>
-                {columns.map((column) => (
-                  <td>{row[column[0]]}</td>
-                ))}
-                <Link
-                  to={{
-                    pathname: `/bank-details/${row.ifsc}`,
-                    query: { ifsc_code: row.ifsc_code },
-                  }}
-                  // style={{ textDecoration: "none" }}
-                  className="rowItem"
-                >
-                  <td className="link">
-                    <div
-                      onClick={() => {
-                        handleClick(row);
-                      }}
-                    >
-                      View Details
-                    </div>
-                  </td>
-                </Link>
-              </tr>
-              //   </Link>
-            ))}
+            {tableData
+              .slice((page - 1) * rowCount, rowCount * page)
+              .map((row) => (
+                <tr>
+                  {columns.map((column) => (
+                    <td>{row[column[0]]}</td>
+                  ))}
+                  <Link
+                    to={{
+                      pathname: `/bank-details/${row.ifsc}`,
+                      query: { ifsc_code: row.ifsc_code },
+                    }}
+                    className="rowItem"
+                  >
+                    <td className="link">
+                      <div
+                        onClick={() => {
+                          handleClick(row);
+                        }}
+                      >
+                        View Details
+                      </div>
+                    </td>
+                  </Link>
+                </tr>
+              ))}
           </tbody>
         </table>
       )}
+      <div className="pagination">
+        <ReactPaginate
+          previousLabel={"<<Prev"}
+          nextLabel={"Next>>"}
+          breakLabel={"..."}
+          pageCount={pageCount}
+          marginPagesDisplayed={1}
+          pageRangeDisplayed={3}
+          onPageChange={handlePageClick}
+          containerClassName={"pagination justify-content-end"}
+          breakClassName={"page-item"}
+          breakLinkClassName={"page-link"}
+          previousClassName={"page-item"}
+          previousLinkClassName={"page-link"}
+          nextClassName={"page-item"}
+          nextLinkClassName={"page-link"}
+          pageClassName={"page-item"}
+          pageLinkClassName={"page-link"}
+          activeClassName={"active"}
+        />
+      </div>
     </>
   );
 }
