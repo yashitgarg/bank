@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import { addFav, addResponse } from "./actions/index";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 import Table from "./table";
 import BankDetail from "./bankDetail";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 function App() {
