@@ -9,7 +9,7 @@ export default function Table({ data, searchCriteria, searchTerm }) {
   const dispatch = useDispatch();
   const [tableData, setTableData] = useState();
   const [page, setPage] = useState(1);
-  const [rowCount] = useState(10);
+  const [rowCount, setRowCount] = useState(10);
   const [pageCount, setPageCount] = useState(0);
   const [favourites, setFavourites] = useState([]);
   useEffect(() => {
@@ -42,6 +42,11 @@ export default function Table({ data, searchCriteria, searchTerm }) {
 
   const handlePageClick = (e) => {
     setPage(e.selected + 1);
+  };
+
+  const handleRowsPerPage = (e) => {
+    setRowCount(e.target.value);
+    setPageCount(Math.ceil(data.length / rowCount));
   };
 
   const handleFavClicked = (e, data) => {
@@ -102,7 +107,17 @@ export default function Table({ data, searchCriteria, searchTerm }) {
           </tbody>
         </table>
       )}
+
       <div className="pagination">
+        <span>
+          Rows Per Page {"   "}
+          <input
+            type="number"
+            className="rowsPerPage"
+            onChange={(e) => handleRowsPerPage(e)}
+            placeholder="10"
+          />
+        </span>
         <ReactPaginate
           previousLabel={"<<Prev"}
           nextLabel={"Next>>"}

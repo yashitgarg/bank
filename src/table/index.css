@@ -28,3 +28,14 @@ td {
   justify-content: center;
   align-items: center;
 }
+
+.pagination {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rowsPerPage {
+  margin-right: 20px;
+}
