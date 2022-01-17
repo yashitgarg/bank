@@ -64,7 +64,7 @@
 .select-dropdown {
   position: relative;
   background-color: #e6e6e6;
-  border-radius: 4px;
+  border-radius: 10px;
 }
 .select-dropdown select {
   font-size: 1rem;
@@ -98,5 +98,17 @@
 .favouritesButton {
   color: black;
   text-decoration: none;
-  width: 80px;
+  width: 100px;
+}
+
+.favouritesButtonContainer {
+  display: flex;
+  align-items: center;
+  background: #e6e6e6;
+  border-radius: 10px;
+  margin-right: auto;
+}
+
+.inputBox {
+  border-radius: 10px;
 }

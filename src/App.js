@@ -104,6 +104,7 @@ function App() {
                     type="text"
                     placeholder="Search..."
                     onChange={(e) => setSearchTerm(e.target.value)}
+                    className="inputBox"
                   ></input>
                 </div>
 
